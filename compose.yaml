@@ -1,0 +1,23 @@
+name: latam-user-management-api
+
+services:
+  postgres:
+    image: postgres:18.3-alpine
+    container_name: latam-user-management-db
+    environment:
+      POSTGRES_USER: latam
+      POSTGRES_PASSWORD: latam
+      POSTGRES_DB: users_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U latam -d users_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+    name: latam-user-management-postgres-data
