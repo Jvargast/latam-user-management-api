@@ -35,8 +35,8 @@ from app.modules.users.presentation.schemas import (
     UserResponse,
 )
 
+# El router para el módulo de usuarios y versionado v1, se puede escalar
 router = APIRouter(prefix="/api/v1/users", tags=["Users"])
-
 
 UserId = Annotated[int, Path(ge=1)]
 Limit = Annotated[int, Query(ge=1, le=100)]

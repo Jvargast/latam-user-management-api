@@ -29,28 +29,28 @@ def error_response(status_code: int, detail: str) -> JSONResponse:
         content=ErrorResponse(detail=detail).model_dump(),
     )
 
-
+# Handler para errror de usuario inexistente, repuesta 404
 def user_not_found_handler(
     _request: Request,
     exc: UserNotFoundError,
 ) -> JSONResponse:
     return error_response(status.HTTP_404_NOT_FOUND, str(exc))
 
-
+# Handler para error de usuario existente, respuesta 409
 def user_already_exists_handler(
     _request: Request,
     exc: UserAlreadyExistsError,
 ) -> JSONResponse:
     return error_response(status.HTTP_409_CONFLICT, str(exc))
 
-
+# Handler para error de actualización sin campos, un 400
 def empty_user_update_handler(
     _request: Request,
     exc: EmptyUserUpdateError,
 ) -> JSONResponse:
     return error_response(status.HTTP_400_BAD_REQUEST, str(exc))
 
-
+# Handler error http
 def http_exception_handler(
     _request: Request,
     exc: HTTPException,

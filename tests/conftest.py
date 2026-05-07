@@ -1,5 +1,7 @@
+from collections.abc import Iterator
 from dataclasses import replace
 from datetime import UTC, datetime
+import logging
 from typing import Any
 
 import pytest
@@ -13,6 +15,8 @@ from app.modules.users.domain.exceptions import (
     UserNotFoundError,
 )
 from app.modules.users.presentation.providers import provide_user_repository
+
+logger = logging.getLogger("tests")
 
 
 def utc_now() -> datetime:
@@ -95,7 +99,24 @@ def user_repository() -> InMemoryUserRepository:
 
 
 @pytest.fixture
-def api_client(user_repository: InMemoryUserRepository) -> TestClient:
+def existing_user(user_repository: InMemoryUserRepository) -> User:
+    return user_repository.add_user(
+        username="latam.user",
+        email="latam@example.com",
+        first_name="Latam",
+        last_name="User",
+    )
+
+
+@pytest.fixture(autouse=True)
+def log_test_execution(request: pytest.FixtureRequest) -> Iterator[None]:
+    logger.info("Inicia test: %s", request.node.nodeid)
+    yield
+    logger.info("Finaliza test: %s", request.node.nodeid)
+
+
+@pytest.fixture
+def api_client(user_repository: InMemoryUserRepository) -> Iterator[TestClient]:
     def override_user_repository() -> InMemoryUserRepository:
         return user_repository
 
@@ -110,10 +131,10 @@ def api_client(user_repository: InMemoryUserRepository) -> TestClient:
 @pytest.fixture
 def user_payload() -> dict[str, Any]:
     return {
-        "username": "jane.doe",
-        "email": "jane.doe@example.com",
-        "first_name": "Jane",
-        "last_name": "Doe",
+        "username": "latam.user",
+        "email": "latam.user@example.com",
+        "first_name": "Latam",
+        "last_name": "User",
         "role": "user",
         "active": True,
     }

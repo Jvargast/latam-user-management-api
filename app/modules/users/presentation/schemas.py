@@ -59,10 +59,10 @@ class UserCreateRequest(UserWriteRequest):
         str_strip_whitespace=True,
         json_schema_extra={
             "example": {
-                "username": "jane.doe",
-                "email": "jane.doe@example.com",
-                "first_name": "Jane",
-                "last_name": "Doe",
+                "username": "latam.user",
+                "email": "latam.user@example.com",
+                "first_name": "Latam",
+                "last_name": "User",
                 "role": "user",
                 "active": True,
             }
@@ -75,9 +75,9 @@ class UserUpdateRequest(UserWriteRequest):
         str_strip_whitespace=True,
         json_schema_extra={
             "example": {
-                "username": "jane.admin",
-                "email": "jane.admin@example.com",
-                "first_name": "Jane",
+                "username": "latam.admin",
+                "email": "latam.admin@example.com",
+                "first_name": "Latam",
                 "last_name": "Admin",
                 "role": "admin",
                 "active": True,
@@ -85,7 +85,7 @@ class UserUpdateRequest(UserWriteRequest):
         },
     )
 
-
+# Patch para solo algunos campos
 class UserPatchRequest(BaseModel):
     username: PatchUsername = None
     email: PatchEmail = None
@@ -98,13 +98,13 @@ class UserPatchRequest(BaseModel):
         str_strip_whitespace=True,
         json_schema_extra={
             "example": {
-                "first_name": "Jane",
+                "first_name": "Latam",
                 "active": False,
             }
         },
     )
 
-
+# Response del usuario con todos los campos
 class UserResponse(BaseModel):
     id: int
     username: str

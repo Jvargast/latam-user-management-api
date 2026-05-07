@@ -77,6 +77,7 @@ class SQLAlchemyUserRepository:
             raise UserAlreadyExistsError("Username or email already exists") from error
 
     def delete(self, user_id: int) -> None:
+        # Se busca que el usuario exista antes de eliminar, si no se encuentra no existe
         model = self.db.get(UserModel, user_id)
 
         if model is None:

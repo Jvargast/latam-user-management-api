@@ -3,7 +3,7 @@ from app.modules.users.presentation.schemas import UserDeleteResponse, UserRespo
 
 USER_DELETED_MESSAGE = "User deleted successfully"
 
-
+# Funciones de presentación que transforman entidades de dominio a respuestas de la API
 def present_user(user: User) -> UserResponse:
     return UserResponse.model_validate(user)
 

@@ -2,7 +2,7 @@ from typing import Protocol
 
 from app.modules.users.domain.entities import User
 
-
+# Puertos de dominio que definen la interfaz del repo
 class UserRepository(Protocol):
     def create(self, user: User) -> User: ...
 

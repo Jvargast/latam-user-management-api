@@ -33,9 +33,9 @@ class ValidationErrorResponse(BaseModel):
                 "detail": VALIDATION_ERROR_MESSAGE,
                 "errors": [
                     {
-                        "field": "email",
-                        "message": "value is not a valid email address",
-                        "code": "value_error",
+                        "field": "field",
+                        "message": "Invalid value",
+                        "code": "validation_error",
                     }
                 ],
             }
@@ -43,6 +43,7 @@ class ValidationErrorResponse(BaseModel):
     )
 
 
+# Función para crear respuesta de error con formato
 def error_response_doc(description: str, detail: str) -> dict[str, object]:
     return {
         "model": ErrorResponse,

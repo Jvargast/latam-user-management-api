@@ -12,31 +12,31 @@ from app.core.logging import configure_logging
 from app.modules.users.presentation.routes import router as users_router
 from app.shared.database.session import engine
 
-# La configuración de registros queda lista antes de rutas y chequeos de salud.
+# La configuración de registros queda lista antes de rutas y check de salud
 configure_logging()
-
+# Logger principal se puede usar en toda la app para mensajes generales
 logger = logging.getLogger(__name__)
 
-
+# Solo una instancai de FastAPI para toda la app
 app = FastAPI(
     title=settings.app_name,
     description="RESTful API for user management",
     version=settings.app_version,
 )
 
-# Los errores globales se registran una vez sobre la aplicación principal.
+# Los errores globales se registran una vez sobre la aplicación principal
 register_exception_handlers(app)
 
-# El módulo de usuarios mantiene sus rutas agrupadas bajo su propio prefijo.
+# El módulo de usuarios mantiene sus rutas agrupadas bajo su propio prefijo
 app.include_router(users_router)
 
-
+# Ruta de health check general, si API responde o no
 @app.get("/health", tags=["Health"])
 def health_check() -> dict[str, str]:
     # Respuesta liviana para saber si la API está levantada.
     return {"status": "ok"}
 
-
+# Ruta de prueba de health para la database, consulta simple para confirmar conexión éxitosa
 @app.get(
     "/health/db",
     tags=["Health"],

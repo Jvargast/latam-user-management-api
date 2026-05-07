@@ -82,7 +82,7 @@ class UpdateUserUseCase:
             values=values,
             current_user_id=user_id,
         )
-
+        # Una vez validados los campos, se crea nueva entidad
         updated_user = replace(current_user, **values)
 
         return self.repository.update(updated_user)

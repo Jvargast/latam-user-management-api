@@ -16,5 +16,5 @@ DatabaseSession = Annotated[Session, Depends(get_db)]
 def provide_user_repository(db: DatabaseSession) -> UserRepository:
     return SQLAlchemyUserRepository(db)
 
-
+# Se inyecta el repo de users en los endpoints usando Depends
 UserRepositoryDep = Annotated[UserRepository, Depends(provide_user_repository)]
