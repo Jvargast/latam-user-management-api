@@ -7,6 +7,7 @@ from app.modules.users.domain.enums import UserRole
 from app.shared.database.base import Base
 
 
+# Tabla persistida, separada de la entidad de dominio
 class UserModel(Base):
     __tablename__ = "users"
 

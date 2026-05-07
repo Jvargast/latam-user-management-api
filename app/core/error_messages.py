@@ -1,0 +1,3 @@
+DATABASE_SERVICE_UNAVAILABLE_MESSAGE = "Database service unavailable"
+HTTP_ERROR_MESSAGE = "HTTP error"
+VALIDATION_ERROR_MESSAGE = "Validation error"

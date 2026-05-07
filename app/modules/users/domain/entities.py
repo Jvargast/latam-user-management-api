@@ -3,7 +3,9 @@ from datetime import datetime
 
 from app.modules.users.domain.enums import UserRole
 
-@dataclass
+
+# Entidad de dominio que representa al usuario.
+@dataclass(slots=True)
 class User:
     id: int | None
     username: str

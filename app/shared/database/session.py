@@ -18,6 +18,7 @@ SessionLocal = sessionmaker(
 
 
 def get_db() -> Generator[Session, None, None]:
+    # Se obtiene una sesión de bbdd para cada petición y se cierra al completarla
     db = SessionLocal()
 
     try:
