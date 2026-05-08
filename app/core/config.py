@@ -1,6 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,6 +16,14 @@ class Settings(BaseSettings):
     environment: str = "local"
     log_level: str = "INFO"
     database_url: str = "postgresql+psycopg://latam:latam@localhost:5434/users_db"
+
+    @field_validator("database_url")
+    @classmethod
+    def use_psycopg_driver(cls, value: str) -> str:
+        if value.startswith("postgresql://"):
+            return value.replace("postgresql://", "postgresql+psycopg://", 1)
+
+        return value
 
     # Cada entorno puede traer o no claves extra sin romper la carga
     model_config = SettingsConfigDict(
